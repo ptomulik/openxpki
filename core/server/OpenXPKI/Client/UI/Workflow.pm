@@ -769,6 +769,11 @@ sub __render_from_workflow {
                 $item->{value}  = { label => $context->{$key}, page => 'certificate!info!identifier!'. $context->{$key}, target => 'modal' };
             }
 
+            if ($key =~ m{ (notbefore|notafter) }x) {
+                $item->{value} = localtime($item->{value});
+                $item->{format} = 'datetime';
+            }
+
             # Code format any PEM blocks
             if ( $key =~ m{ (pkcs10) }x) {
                 $item->{format} = 'code';
